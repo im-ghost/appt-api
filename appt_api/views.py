@@ -23,7 +23,12 @@ def users_list(request):
      return Response(serializer.errors)
 @api_view(["GET","DELETE","PUT","PATCH"])
 def user(request,pk):
-  user = User.objects.get(pk=pk)
+  try:
+   user = User.objects.get(pk=pk)
+  except:
+    return Response({
+      "error":"user not found"
+    },status=status.HTTP_404_NOT_FOUND)
   if request.method == "GET":
     serializer = userSerializer(user)
     return Response(serializer.data)
@@ -38,4 +43,6 @@ def user(request,pk):
      return Response(serializer.errors)
   elif request.method == "DELETE":
     user.delete()
-    return Response({"del": True})
+    return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    

@@ -1,9 +1,9 @@
 
 from django.contrib import admin
-from appt_api.views import users_list,user_create
+from appt_api.views import users_list,user
 from django.urls import path,include
 
 urlpatterns = [
-    path('users/', user_create),
-    path('users/list', users_list),
+    path('users/', users_list),
+    path('users/<int:pk>', user),
 ]

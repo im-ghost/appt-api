@@ -5,3 +5,7 @@ class userSerializer(serializers.Serializer):
   name = serializers.CharField()
   def create(self,data):
     return User.objects.create(**data)
+  def update (self,instance,data):
+    instance.name = data.get('name',instance.name)
+    instance.save()
+    return instance
